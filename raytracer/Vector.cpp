@@ -11,14 +11,20 @@ Vector::Vector(float xval, float yval, float zval)
 {
 }
 
-Vector Vector::operator*(const float c) const
+Vector& Vector::operator*(const float c)
 {
-	return Vector(c * m_x, c * m_y, c * m_z);
+	m_x *= c;
+	m_y *= c;
+	m_z *= c;
+	return *this;
 }
 
-Vector Vector::operator*(const Vector & other) const
+Vector& Vector::operator*(const Vector & other)
 {
-	return Vector(m_x * other.m_x, m_y * other.m_y, m_z * other.m_z);
+	m_x *= other.m_x;
+	m_y *= other.m_y;
+	m_z *= other.m_z;
+	return *this;
 }
 
 float Vector::operator%(const Vector& other) const
@@ -26,19 +32,36 @@ float Vector::operator%(const Vector& other) const
 	return (m_x * other.m_x) + (m_y * other.m_y) + (m_z * other.m_z);
 }
 
-Vector Vector::operator+(const Vector& other) const
+Vector& Vector::operator+(const Vector& other)
 {
-	return Vector(m_x + other.m_x, m_y + other.m_y, m_z + other.m_z);
+	m_x += other.m_x;
+	m_y += other.m_y;
+	m_z += other.m_z;
+	return *this;
 }
 
-Vector Vector::operator-(const Vector& other) const
+Vector& Vector::operator-(const Vector& other)
 {
-	return Vector(m_x - other.m_x, m_y - other.m_y, m_z - other.m_z);
+	m_x -= other.m_x;
+	m_y -= other.m_y;
+	m_z -= other.m_z;
+	return *this;
 }
 
-Vector Vector::operator^(const Vector& other) const
+Vector& Vector::operator^(const Vector& other)
 {
-	return Vector(m_y * other.m_z - m_z * other.m_y, m_z * other.m_x - m_x * other.m_z, m_x * other.m_y - m_y * other.m_x);
+	m_x = m_y * other.m_z - m_z * other.m_y;
+	m_y = m_z * other.m_x - m_x * other.m_z;
+	m_z = m_x * other.m_y - m_y * other.m_x;
+	return *this;
+}
+
+Vector& Vector::power(const float exp)
+{
+	m_x = powf(m_x, exp);
+	m_y = powf(m_y, exp);
+	m_z = powf(m_z, exp);
+	return *this;
 }
 
 float Vector::mag2() const
