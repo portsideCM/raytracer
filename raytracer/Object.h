@@ -4,19 +4,13 @@
 class Object
 {
 protected:
-	Vector center;
-	Color color;
-	float reflectivity;
-	float p_kD, p_kS, p_alpha;
+	const Vector center;
+	const Color color;
+	const float reflectivity;
+	const float p_kD, p_kS, p_alpha;
 public:
-	Object();
-	Object(Vector& c);
 	Object(Vector& c, Color& col, float ref, float kd, float ks, float a);
 	virtual ~Object() {};
-
-	void move(Vector& newPos) { center = newPos; }
-	void setReflectivity(double newR) { reflectivity = newR; }
-	void setColor(Color& newColor) { color = newColor; };
 
 	Vector getPosition() const { return center; }
 	Color getColor() const { return color; }
@@ -34,7 +28,6 @@ class Plane : public Object
 private:
 	Vector normal;
 public:
-	Plane(Vector& n, Vector& p);
 	Plane(Vector& n, Vector& p, Color& c, float ref, float kd, float ks, float a);
 
 	Vector getNormalAt(const Vector& position) const;
@@ -47,8 +40,6 @@ private:
 	float radius;
 public:
 	Sphere(Vector& pos, float radius, Color& c, float ref, float kd, float ks, float a);
-	Sphere(Vector& pos, float radius);
-	Sphere(Vector& pos);
 
 	Vector getNormalAt(const Vector& position) const;
 	bool intersects(const Ray& ray, HitRecord& hr) const;

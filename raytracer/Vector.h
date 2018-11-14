@@ -2,27 +2,25 @@
 #include <math.h>
 
 class Object;
-typedef Vector Color;
 
 class Vector
 {
-private:
-	float m_x, m_y, m_z;
 public:
+	float m_x, m_y, m_z;
+
 	Vector() = default;
 	Vector(float value);
 	Vector(float xval, float yval, float zval);
 	~Vector() = default;
 
-	float getX() const { return m_x; }
-	float getY() const { return m_y; }
-	float getZ() const { return m_z; }
-
 	Vector& operator*(const float c);
+	Vector& operator*(const float c) const;
 	Vector& operator*(const Vector& other);
 	float operator%(const Vector& other) const;
 	Vector& operator+ (const Vector& other);
+	Vector& operator+ (const Vector& other) const;
 	Vector& operator- (const Vector& other);
+	Vector& operator- (const Vector& other) const;
 	Vector& operator^ (const Vector& other);
 
 	Vector& power(const float exp);
@@ -31,7 +29,10 @@ public:
 	float mag() const;
 
 	Vector& normalize();
+	Vector& reflectThisAcross(const Vector& other);
 };
+
+typedef Vector Color;
 
 struct Ray
 {

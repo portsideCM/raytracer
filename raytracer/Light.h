@@ -16,9 +16,9 @@ public:
 	Color getColor() { return color; }
 	float getIntensity() { return intensity; }
 
-	Color getIntensityAt(float distance) 
+	float getIntensityAt(float distance) 
 	{
-		return color * (intensity / (pi * 4 * distance * distance));
+		return (intensity / (pi * 4 * distance * distance));
 	}
 };
 

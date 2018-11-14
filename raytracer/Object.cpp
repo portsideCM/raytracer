@@ -1,25 +1,9 @@
 #include "stdafx.h"
 #include "Object.h"
 
-Object::Object()
-	: center(), color(255)
-{
-}
-
-Object::Object(Vector& c)
-	: center(c), color(255)
-{
-}
-
 Object::Object(Vector& c, Color& col, float ref, float kd, float ks, float a)
 	: center(c), color(col), reflectivity(ref), p_kD(kd), p_kS(ks), p_alpha(a)
 {
-}
-
-Plane::Plane(Vector& n, Vector& p)
-	: Object(p), normal(n)
-{
-	normal.normalize();
 }
 
 Plane::Plane(Vector& n, Vector& p, Color& c, float ref, float kd, float ks, float a)
@@ -42,7 +26,7 @@ bool Plane::intersects(const Ray& ray, HitRecord& hr) const
 	if (inter >= 0) {
 		hr.t = inter;
 		hr.normal = normal;
-		hr.point = (ray.start + ray.direction * inter);
+		hr.point = (ray.start + (ray.direction * inter));
 		hr.obj = this;
 		return true;
 	}
@@ -52,16 +36,6 @@ bool Plane::intersects(const Ray& ray, HitRecord& hr) const
 
 Sphere::Sphere(Vector& pos, float radius, Color& c, float ref, float kd, float ks, float a)
 	: Object(pos, c, ref, kd, ks, a), radius(radius)
-{
-}
-
-Sphere::Sphere(Vector& pos, float radius)
-	: Object(pos), radius(radius)
-{
-}
-
-Sphere::Sphere(Vector& pos)
-	: Object(pos), radius(1.0f)
 {
 }
 

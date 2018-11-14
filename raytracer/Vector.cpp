@@ -19,6 +19,11 @@ Vector& Vector::operator*(const float c)
 	return *this;
 }
 
+Vector& Vector::operator*(const float c) const
+{
+	return Vector(m_x * c, m_y * c, m_z * c);
+}
+
 Vector& Vector::operator*(const Vector & other)
 {
 	m_x *= other.m_x;
@@ -40,12 +45,22 @@ Vector& Vector::operator+(const Vector& other)
 	return *this;
 }
 
+Vector & Vector::operator+(const Vector & other) const
+{
+	return Vector(m_x + other.m_x, m_y + other.m_y, m_z + other.m_z);
+}
+
 Vector& Vector::operator-(const Vector& other)
 {
 	m_x -= other.m_x;
 	m_y -= other.m_y;
 	m_z -= other.m_z;
 	return *this;
+}
+
+Vector & Vector::operator-(const Vector & other) const
+{
+	return Vector(m_x - other.m_x, m_y - other.m_y, m_z - other.m_z);
 }
 
 Vector& Vector::operator^(const Vector& other)
@@ -90,6 +105,11 @@ Vector& Vector::normalize()
 		m_z /= magnitude;
 	}
 	return *this;
+}
+
+Vector& Vector::reflectThisAcross(const Vector & other)
+{
+	return (other * ((*this) % other * 2.0f) - *this);
 }
 
 
